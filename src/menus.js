@@ -33,77 +33,15 @@ var menus = {
 			action: file_load_from_url,
 			description: "Opens an image from the web.",
 		},
-		{
-			item: "&Upload To Imgur",
-			action: function(){
-				// include the selection in the saved image
-				deselect();
-
-				canvas.toBlob(function(blob){
-					sanity_check_blob(blob, function(){
-						show_imgur_uploader(blob);
-					});
-				});
-			},
-			description: "Uploads the active document to Imgur",
-		},
 		$MenuBar.DIVIDER,
 		{
-			item: "Manage Storage",
-			action: manage_storage,
-			description: "Manages storage of previously created or opened pictures.",
-		},
-		$MenuBar.DIVIDER,
-		{
-			item: "Print Pre&view",
+			item: "Print",
 			action: function(){
 				print();
 			},
 			description: "Prints the active document and sets printing options.",
 			//description: "Displays full pages.",
 		},
-		{
-			item: "Page Se&tup",
-			action: function(){
-				print();
-			},
-			description: "Prints the active document and sets printing options.",
-			//description: "Changes the page layout.",
-		},
-		{
-			item: "&Print",
-			shortcut: "Ctrl+P",
-			action: function(){
-				print();
-			},
-			description: "Prints the active document and sets printing options.",
-		},
-		$MenuBar.DIVIDER,
-		{
-			item: "Set As &Wallpaper (Tiled)",
-			action: set_as_wallpaper_tiled,
-			description: "Tiles this bitmap as the desktop background.",
-		},
-		{
-			item: "Set As Wallpaper (&Centered)", // in mspaint it's Wa&llpaper
-			action: set_as_wallpaper_centered,
-			description: "Centers this bitmap as the desktop background.",
-		},
-		$MenuBar.DIVIDER,
-		{
-			item: "Recent File",
-			enabled: false, // @TODO for chrome app / desktop app
-			description: "",
-		},
-		$MenuBar.DIVIDER,
-		{
-			item: "E&xit",
-			shortcut: "Alt+F4",
-			action: function(){
-				close();
-			},
-			description: "Quits Paint.",
-		}
 	],
 	"&Edit": [
 		{
@@ -230,22 +168,6 @@ var menus = {
 			enabled: false, // @TODO
 			checkbox: {},
 			description: "Shows or hides the text toolbar.",
-		},
-		$MenuBar.DIVIDER,
-		{
-			item: "E&xtras Menu",
-			checkbox: {
-				toggle: function(){
-					$extras_menu_button.toggle();
-					try{
-						localStorage["jspaint extras menu visible"] = this.check();
-					}catch(e){}
-				},
-				check: function(){
-					return $extras_menu_button.is(":visible");
-				}
-			},
-			description: "Shows or hides the Extras menu.",
 		},
 		$MenuBar.DIVIDER,
 		{
@@ -386,110 +308,6 @@ var menus = {
 			},
 			description: "Saves the current palette of colors to a file.",
 		}
-	],
-	"&Help": [
-		{
-			item: "&Help Topics",
-			action: show_help,
-			description: "Displays Help for the current task or command.",
-		},
-		$MenuBar.DIVIDER,
-		{
-			item: "&About Paint",
-			action: show_about_paint,
-			description: "Displays information about this application.",
-			//description: "Displays program information, version number, and copyright.",
-		}
-	],
-	"E&xtras": [
-		{
-			item: "&Render History As GIF",
-			// shortcut: "Ctrl+Shift+G",
-			action: render_history_as_gif,
-			description: "Creates an animation from the document history.",
-		},
-		// {
-		// 	item: "Render History as &APNG",
-		// 	// shortcut: "Ctrl+Shift+A",
-		// 	action: render_history_as_apng,
-		// 	description: "Creates an animation from the document history.",
-		// },
-		// {
-		// 	item: "Extra T&ool Box",
-		// 	checkbox: {
-		// 		toggle: function(){
-		// 			// this doesn't really work well at all to have two toolboxes
-		// 			// (this was not the original plan either)
-		// 			$toolbox2.toggle();
-		// 		},
-		// 		check: function(){
-		// 			return $toolbox2.is(":visible");
-		// 		},
-		// 	},
-		// 	description: "Shows or hides an extra tool box.",
-		// },
-		// {
-		// 	item: "&Preferences",
-		// 	action: function(){
-		// 		// :)
-		// 	},
-		// 	description: "Configures JS Paint.",
-		// }
-		{
-			item: "&Multi-User",
-			submenu: [
-				{
-					item: "&New Session From Document",
-					action: function(){
-						var name = prompt("Enter the session name that will be used in the URL for sharing.");
-						if(typeof name == "string"){
-							name = name.trim();
-							if(name == ""){
-								show_error_message("The session name cannot be empty.");
-							}else if(name.match(/[.\/\[\]#$]/)){
-								show_error_message("The session name cannot contain any of ./[]#$");
-							}else{
-								location.hash = "session:" + name;
-							}
-						}
-					},
-					description: "Starts a new multi-user session from the current document.",
-				},
-				{
-					item: "New &Blank Session",
-					action: function(){
-						show_error_message("Not supported yet");
-					},
-					enabled: false,
-					description: "Starts a new multi-user session from an empty document.",
-				},
-			]
-		},
-		{
-			item: "&Themes",
-			submenu: [
-				{
-					item: "&Classic",
-					action: function(){
-						set_theme("classic.css");
-					},
-					enabled: function(){
-						return get_theme() != "classic.css"
-					},
-					description: "Makes JS Paint look like MS Paint from Windows 98.",
-				},
-				{
-					item: "&Modern (WIP)",
-					action: function(){
-						set_theme("modern.css");
-					},
-					enabled: function(){
-						return get_theme() != "modern.css"
-					},
-					description: "Makes JS Paint look a bit more modern.",
-				},
-			]
-		},
 	],
 };
 
