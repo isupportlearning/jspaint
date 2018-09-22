@@ -5,7 +5,7 @@ function show_help(){
 	if($help_window){
 		$help_window.close();
 	}
-	$help_window = $Window().title("Paint Help"); // "Help Topics" // "Windows Help"
+	$help_window = $Window().title("Help"); // "Help Topics" // "Windows Help"
 	$help_window.addClass("help-window");
 	// $toolbar = $(E("div")).addClass("toolbar");
 	// $help_window.$content.append($toolbar);
