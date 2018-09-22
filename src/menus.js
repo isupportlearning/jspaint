@@ -19,13 +19,6 @@ var menus = {
 			action: file_save,
 			description: "Saves the active document.",
 		},
-		{
-			item: "Save &As",
-			shortcut: "Ctrl+Shift+S",
-			// in mspaint, no shortcut is listed, but it supports F12; it doesn't support Ctrl+Shift+S
-			action: file_save_as,
-			description: "Saves the active document with a new name.",
-		},
 		$MenuBar.DIVIDER,
 		{
 			item: "&Load From URL",

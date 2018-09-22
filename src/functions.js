@@ -255,6 +255,7 @@ function file_save(){
 }
 
 function file_save_as(){
+    var file_name = prompt('Enter file name without extension');
 	deselect();
 	if(window.chrome && chrome.fileSystem && chrome.fileSystem.chooseEntry){
 		chrome.fileSystem.chooseEntry({
